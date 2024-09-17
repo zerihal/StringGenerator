@@ -23,7 +23,7 @@ public class StringGeneratorService {
         Random ran = new Random();
 
         if (length < 0) {
-            length = ran.nextInt(50, 100);
+            length = ran.nextInt(50, 101);
         }
 
         StringBuilder sb = new StringBuilder(length);
