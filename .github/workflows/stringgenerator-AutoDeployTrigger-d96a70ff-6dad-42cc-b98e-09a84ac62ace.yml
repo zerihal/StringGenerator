@@ -36,7 +36,6 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           _dockerfilePathKey_: _dockerfilePath_
-          registryUrl: 
           registryUsername: ${{ secrets.STRINGGENERATOR_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.STRINGGENERATOR_REGISTRY_PASSWORD }}
           containerAppName: stringgenerator
