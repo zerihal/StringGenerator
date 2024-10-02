@@ -1,0 +1,48 @@
+name: Trigger auto deployment for stringtest3
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/stringtest3-AutoDeployTrigger-b5b5fe4d-d923-4782-a353-845ec24763a5.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.STRINGTEST3_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.STRINGTEST3_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.STRINGTEST3_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: 
+          registryUsername: ${{ secrets.STRINGTEST3_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.STRINGTEST3_REGISTRY_PASSWORD }}
+          containerAppName: stringtest3
+          resourceGroup: JPS
+          imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
