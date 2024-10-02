@@ -36,7 +36,7 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           _dockerfilePathKey_: _dockerfilePath_
-          registryUrl: 
+          registryUrl: appreg1.azurecr.io
           registryUsername: ${{ secrets.STRINGTEST3_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.STRINGTEST3_REGISTRY_PASSWORD }}
           containerAppName: stringtest3
