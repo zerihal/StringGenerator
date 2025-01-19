@@ -1,1 +1,1 @@
-Basic random string generator microservice for testing cloud app service (Azure) and docker deployment.
+Basic random string generator microservice for testing REST API cloud app service (Azure) and docker deployment.
